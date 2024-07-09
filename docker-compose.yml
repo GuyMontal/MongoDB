@@ -1,0 +1,27 @@
+version: '3.2'
+services:
+
+    mongo:
+        image: mongo:6.0.13
+        ports:
+            - "27017:27017"
+            
+    nifi:
+        image: xemuliam/nifi:1.9
+        ports:
+            - "8081:8080"
+            
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
+        ports:
+            - "9200:9200"
+        environment:
+            discovery.type: single-node
+            
+    kibana:
+        image: docker.elastic.co/kibana/kibana:7.13.2
+        ports:
+            - "5601:5601"
+        depends_on:
+            - elasticsearch
+            
